@@ -6,15 +6,15 @@ WORKDIR /generator
 # restore
 COPY api/api.csproj ./api/
 RUN dotnet restore api/api.csproj
-COPY tests/tests.csproj ./tests/
-RUN dotnet restore tests/tests.csproj
+COPY tests/UnitTests/UnitTests.csproj ./tests/UnitTests/
+RUN dotnet restore tests/UnitTests/UnitTests.csproj
 
 # copy src
 COPY . .
 
 # test
 ENV TEAMCITY_PROJECT_NAME=fake
-RUN dotnet test tests/tests.csproj
+RUN dotnet test tests/UnitTests/UnitTests.csproj
 
 # publish
 RUN dotnet publish api/api.csproj -o /publish
