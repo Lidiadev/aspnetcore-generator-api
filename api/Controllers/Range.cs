@@ -8,7 +8,7 @@ namespace api.Controllers
     public class Range
     {
         public int Count { get; set; } = 10;
-        public bool Sort { get; set; } = false;
+        public bool Sort { get; set; } = true;
 
         public IEnumerable<TItem> Of<TItem>(Func<TItem> generateItem)
             => Count.Times(i => generateItem())
