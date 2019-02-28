@@ -1,8 +1,8 @@
 FROM microsoft/dotnet:2-sdk
 WORKDIR /integration
 
-COPY integration.csproj .
+COPY IntegrationTests.csproj .
 RUN dotnet restore
 
 COPY . .
-ENTRYPOINT ["dotnet", "test"]
+ENTRYPOINT [ "dotnet", "test" ]

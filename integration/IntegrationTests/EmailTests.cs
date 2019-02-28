@@ -1,14 +1,13 @@
 using System;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
-using FluentAssertions.Json;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace integration
+namespace IntegrationTests
 {
+    using System.Net.Http;
+    using System.Threading.Tasks;
+    using FluentAssertions.Json;
+    using Newtonsoft.Json.Linq;
+
     public class EmailTests
     {
         public const string GeneratorApiRoot = "http://generator";
@@ -42,12 +41,12 @@ namespace integration
                 response.EnsureSuccessStatusCode();
                 var content = await response.Content.ReadAsStringAsync();
                 var messages = JObject.Parse(content);
-                messages.Should().HaveElement("total").Which.Should().Be(1);
+                messages.Should().HaveElement("total").Which.Should().BeEquivalentTo(1);
                 messages.Should().HaveElement("items")
                     .Which.Should().BeOfType<JArray>()
                     .Which.First.Should().HaveElement("Raw")
                     .Which.Should().HaveElement("From")
-                    .Which.Should().Be("generator@generate.com");
+                    .Which.Should().BeEquivalentTo("generator@generate.com");
             }
         }
     }
